@@ -14,6 +14,7 @@ def lengthOfLongestSubstring(s: 'str') -> 'int':
         if s[current] in lookup_set:
             if current_streak > max_streak:
                 max_streak = current_streak
+            print(lookup_set[current])
         else:
             lookup_set[s[current]] = current
             current_streak += 1
