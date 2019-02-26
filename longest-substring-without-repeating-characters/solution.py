@@ -11,15 +11,22 @@ def lengthOfLongestSubstring(s: 'str') -> 'int':
     beg = 0
     current = 0
     while current < len(s):
+
+        print("beg %s current %s \n current_streak %s max_streak %s"%(beg, current, current_streak, max_streak))
+        # TODO: must clear from lookup table
+
         if s[current] in lookup_set:
             if current_streak > max_streak:
+                print("inner beg: %s, current: %s"%(beg, current))
                 max_streak = current_streak
-            print(lookup_set[current])
+            beg = lookup_set[s[current]] + 1
+            current_streak = current - beg
         else:
-            lookup_set[s[current]] = current
             current_streak += 1
+        lookup_set[s[current]] = current
         current += 1
     if current_streak > max_streak:
+        print("outer beg: %s, current: %s"%(beg, current))
         max_streak = current_streak
     return max_streak
 
