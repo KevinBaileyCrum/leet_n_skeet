@@ -5,10 +5,33 @@ def findMedianSortedArrays(nums1, nums2):
     p1 = 0
     p2 = 0
     num_iterations = 0
-    while num_iterations < half_iteratoins:
-        while p1 < len(nums1) and p2 < len(num2) and num_iterations < half_iteratoins:
+    # while num_iterations < half_iteratoins:
+    print("top")
+    while p1 < len(nums1) and p2 < len(num2):
+        print('inner both')
+        if num_iterations < half_iteratoins:
             if nums1[p1] < nums2[p2]:
-               print("i am the wind")
+               p1 += 1
+            else:
+               p2 += 1
+        else:
+            return 2.5
+
+    while p1 < len(nums1):
+        print('inner 1')
+        if num_iterations < half_iteratoins:
+            # optimization extrapolate median here
+            p1 += 1
+        else:
+            return nums1[p1]
+    while p2 < len(nums2):
+        print('inner 2')
+        if  num_iterations < half_iteratoins:
+            p2 += 1
+        else:
+            return nums2[p2]
+    return -1
+
 
 
 if __name__ == "__main__":
