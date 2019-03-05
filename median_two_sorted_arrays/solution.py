@@ -61,14 +61,19 @@ from sys import argv
 #     return -1
 
 def get_next(nums1, p1, nums2, p2):
+    less_than = -1
     if p1 < len(nums1) and p2 < len(nums2):
-        pass
+        if nums1[p1] < nums2[p2]:
+            less_than = nums1[p1]
+            p1 += 1
     elif p1 < len(nums1):
-        pass
+        less_than = nums1[p1]
+        p1 += 1
     elif p2 < len(nums2):
-        pass
-    return None
-
+        less_than = nums2[p2]
+        p2 += 1
+    print("returning p1 %s, p2 %s"%(p1, p2))
+    return less_than
 
 def findMedianSortedArrays(nums1, nums2):
     half_iterations = ((len(nums1) + len(nums2)) / 2) -1
@@ -76,7 +81,9 @@ def findMedianSortedArrays(nums1, nums2):
     p1 = 0
     p2 = 0
     while p1 + p2 < half_iterations:
+        print("before p1 %s, p2 %s"%(p1, p2))
         curr = get_next(nums1, p1, nums2, p2)
+        print("after p1 %s, p2 %s"%(p1, p2))
     if is_even:
         curr_next = get_next(nums1, p1, nums2, p2)
         curr = (curr_next + curr) / 2
