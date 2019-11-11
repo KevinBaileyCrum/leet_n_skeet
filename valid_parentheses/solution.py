@@ -8,9 +8,7 @@ def isValid(str):
         if char in closing:
             if(len(stack) < 1 or opening.index(stack.pop()) != closing.index(char)):
                 return False
-    if len(stack) != 0:
-        return False
-    return True
+    return (len(stack) == 0)
 
 if __name__ == '__main__':
     print(isValid('()'))
