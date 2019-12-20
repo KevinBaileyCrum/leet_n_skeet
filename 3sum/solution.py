@@ -1,14 +1,8 @@
 # find all sets of three who sum to 0 in list
 # sets must be unique
 def threeSum(nums):
-    solution = []
-    for i in range (0, len(nums)-2):
-        for j in range (i+1, len(nums)-1):
-            for k in range (j+1, len(nums)):
-                if (nums[i] + nums[j] + nums[k]) == 0:
-                    if sorted([nums[i], nums[j], nums[k]]) not in solution:
-                        solution.append(sorted([nums[i], nums[j], nums[k]]))
-    print(solution)
+    nums.sort()
+    print(nums)
     return solution
 
 if __name__ == '__main__':
