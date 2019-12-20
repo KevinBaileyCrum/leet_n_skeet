@@ -20,7 +20,7 @@ void insertionSort(int* A, int length){
     for(int i=1; i<length; ++i){
         int j = i - 1;
         int key = A[i];
-        while(j>=0 && (A[j] > key)){
+        while(j>=0 && (A[j] < key)){
             A[j+1] = A[j];
             --j;
         }
@@ -30,6 +30,7 @@ void insertionSort(int* A, int length){
 
 int main(){
     int A[] = {5, 2, 9, 7, 1, 3, 2, 6};
+    /* int B[] = { */
     insertionSort(A, 8);
     printArray(A, 8);
 }
