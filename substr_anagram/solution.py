@@ -5,6 +5,7 @@ import string
 # Function to print all sub strings
 def subString(s):
     substrList = []
+    anagramCount = 0
     count = 0
     for i in range(len(s)):
         j=i+1
@@ -21,5 +22,4 @@ s1 = 'mom'
 s2 = string.ascii_lowercase
 s3 = 'z'
 print(subString(s1))
-
 
