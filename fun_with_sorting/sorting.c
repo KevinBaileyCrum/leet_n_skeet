@@ -34,7 +34,7 @@ void insertionSort(int* A, int length){
 // merge() makes copy of the left and right arrays
 // O(n lg n)
 void merge(int* A, int low, int middle, int high){
-    return "now implemented";
+      
 }
 
 void mergeSort(int* A, int low, int high){
