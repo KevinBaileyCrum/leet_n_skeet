@@ -3,8 +3,6 @@
 // len of original string is passed however enough room is allotted
 
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
 void URLify(char* str, int strSize){
   int spaceCount = 0;
@@ -15,6 +13,7 @@ void URLify(char* str, int strSize){
       str[i+(2*spaceCount)] = str[i];
     else {
       int shift = i+(2*spaceCount);
+      // is there a cleaner C way of inserting multichar constants
       str[shift-2]   = '%';
       str[shift-1] = '2';
       str[shift] = '0';
@@ -31,5 +30,5 @@ int main(){
   URLify(a, 13);
   URLify(b, 21);
 
-  printf("%s\n%s", a, b);
+  printf("%s\n%s\n", a, b);
 }
