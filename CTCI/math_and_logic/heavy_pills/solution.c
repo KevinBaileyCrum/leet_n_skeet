@@ -3,6 +3,7 @@
 // given a scale that records exact weight determine which bottle has the heavy pill
 //
 // you may only read from the scale exactly once
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -14,9 +15,11 @@ typedef struct PillBottle {
 int heavyBottleFinder(PillBottle P[], int numBottles){
   double euclid = (numBottles) * (numBottles + 1) / 2;
   double scale = 0.0;
+  
   for(int i=0; i<numBottles; i++){
     scale += P[i].weight * (i+1); // off by one
   }
+  
   return ((scale - euclid) * 10) - 1;
 }
 
@@ -36,5 +39,4 @@ int main(){
     printf("success");
   for(int i=0; i<20; i++)
     printf("%d %f\n",i ,P[i].weight);
-
 }
