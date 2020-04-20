@@ -10,13 +10,12 @@
 
 class FooBar {
    private:
-      /* int n; */
+      int n;    // make public to print in for loop
       int flip; // condition variable used for foo vs bar state:
                 // zero is foo and 1 is bar
       std::mutex mtx;
       std::condition_variable condVar; 
    public:
-      int n;
       FooBar(int n) {
          this->n = n;
          flip = 0;
@@ -58,24 +57,25 @@ int main() {
    FooBar fb2(2);
    FooBar fb0(0);
    FooBar fb10(10);
-
-   std::vector<FooBar> foobars;
-   foobars.push_back(fb1);
-   foobars.push_back(fb2);
-   foobars.push_back(fb0);
-   foobars.push_back(fb10);
-
-   for (auto & element : foobars) {
-      std::cout << element.n << " ";
-      std::thread t1(&FooBar::foo, &element);
-      std::thread t2(&FooBar::bar, &element);
-      t1.join();
-      t2.join();
-      std::cout << std::endl;
-   }
    
-   /* std::thread t1(&FooBar::foo, &fb2); */
-   /* std::thread t2(&FooBar::bar, &fb2); */
-   /* t1.join(); */
-   /* t2.join(); */
+   // undo comment and make mtx and condVar global to prevent copying
+   /* std::vector<FooBar> foobars; */
+   /* foobars.push_back(fb1); */
+   /* foobars.push_back(fb2); */
+   /* foobars.push_back(fb0); */
+   /* foobars.push_back(fb10); */
+
+   /* for (auto & element : foobars) { */
+   /*    std::cout << element.n << " "; */
+   /*    std::thread t1(&FooBar::foo, &element); */
+   /*    std::thread t2(&FooBar::bar, &element); */
+   /*    t1.join(); */
+   /*    t2.join(); */
+   /*    std::cout << std::endl; */
+   /* } */
+   
+   std::thread t1(&FooBar::foo, &fb2);
+   std::thread t2(&FooBar::bar, &fb2);
+   t1.join();
+   t2.join();
 }
