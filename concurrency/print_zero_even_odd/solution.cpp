@@ -4,6 +4,15 @@
 #include <iostream>
 #include <vector>
 
+/* The same instance of ZeroEvenOdd will be passed to three different threads: */
+
+/* Thread A will call zero() which should only output 0's. */
+/* Thread B will call even() which should only ouput even numbers. */
+/* Thread C will call odd() which should only output odd numbers. */
+/* Each of the threads is given a printNumber method to output an integer. Modify the given program to output the series 010203040506... where the length of the series must be 2n. */
+
+
+
 class ZeroEvenOdd {
    private:
       int n;
