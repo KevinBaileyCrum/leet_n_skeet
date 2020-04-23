@@ -15,29 +15,72 @@
 #include <iostream>
 #include <vector>
 
+class Fork {
+   private:
+      bool taken;
+   public:
+      Fork() {
+         this->taken = false;
+      }
+      bool isTaken();
+      void aquire();
+      void release();
+};
+
+bool Fork::isTaken() {
+   return taken;
+}
+
+void Fork::aquire() {
+   taken = true;
+}
+
+void Fork::release() {
+   taken = false;
+}
+
 class DiningPhilosophers {
    private:
-      const std::vector<int> forks {0, 1, 2, 3, 4};
       std::mutex mtx;
+      std::condition_variable cv;
    public:
+      std::vector<Fork> forks;
       DiningPhilosophers() {
+         forks = std::vector<Fork> (5);
          std::cout << "instance of dining philosphers created" << std::endl;
-
+         for ( auto &i : forks ) {
+            std::cout << i.isTaken() << std::endl;
+         }
       }
 
       void wantsToEat(
-         int philosopher,
-         std::function<void()> pickLeftFork,
-         std::function<void()> pickRightFork,
-         std::function<void()> eat,
-         std::function<void()> putLeftFork,
-         std::function<void()> putRightFork) 
+            int philosopher,
+            std::function<void()> pickLeftFork,
+            std::function<void()> pickRightFork,
+            std::function<void()> eat,
+            std::function<void()> putLeftFork,
+            std::function<void()> putRightFork) 
       {
          std::unique_lock<std::mutex> lck(mtx);
-         const int leftFork = forks[(philosopher - 1) % 5];
-         const int rightFork = forks[philosopher];
-         std::cout << "philosopher " << philosopher << "left " << leftFork << "right " << rightFork << std::endl;
+         Fork *leftFork = &forks[(philosopher - 1) % 5];
+         Fork *rightFork = &forks[philosopher];
+         /* std::cout << "philosopher " << philosopher << " left " << 
+          * leftFork << " right " << rightFork << std::endl; */
+         /* std::cout <<"left.taken " << forks[philosopher].taken(); */
+         while(leftFork->isTaken() && rightFork->isTaken()) {
+            cv.wait(lck);
+         }
+         leftFork->aquire();
+         rightFork->aquire();
+         pickLeftFork();
+         pickRightFork();
+         eat();
+         putLeftFork();
+         putRightFork();
+         leftFork->release();
+         rightFork->release();
          lck.unlock();
+         cv.notify_all();
       }
 };
 
